@@ -4,8 +4,10 @@ from text import texts
 import keyboard
 
 
+
+
 async def send_message_start(message):
-    await bot.send_video(message.from_user.id, video=InputFile(path_or_bytesio="Video.mp4"), caption=f"<b>{texts['start']}</b> +7 (969) 000-40-40", reply_markup=keyboard.kb_mark_main, parse_mode='html')
+    await bot.send_video(message.from_user.id, video=InputFile(path_or_bytesio="Video.mp4"), caption=f"{texts['start']}", reply_markup=keyboard.kb_mark_main,)
 
 async def send_message_price(message):
     await bot.send_message(message.from_user.id, texts["price"], reply_markup=keyboard.inl_kb_mark_services)
@@ -23,6 +25,9 @@ async def send_message_queshions(message):
 async def send_message_sign_up(message):
     await bot.send_message(message.from_user.id, texts["sign_up"], reply_markup=keyboard.inl_kb_mark_sign_up)
 
+async def about_us_message(message):
+    await bot.send_message(message.from_user.id, texts["about_us"], reply_markup=keyboard.inl_kb_mark_about)
+
 async def edit_message_service_description(call):
     await bot.edit_message_text(
         text = texts[call.data],
@@ -33,11 +38,17 @@ async def edit_message_service_description(call):
 
 async def edit_message_all_services(call):
     await bot.edit_message_text(
-        text = texts["price"],
+        text=texts["price"],
         message_id = call.message.message_id,
         chat_id = call.message.chat.id, 
         reply_markup=keyboard.inl_kb_mark_services
     )
+
+async def work_message(message):
+    await bot.send_message(message.from_user.id, texts["work"], reply_markup=keyboard.inl_kb_mark_inst)
+
+async def send_message_number(call):
+    await bot.send_message(call.from_user.id, texts['tel'])
 
 def register_handlers(dp):
     dp.register_message_handler(send_message_start, commands=["start"])
@@ -46,6 +57,11 @@ def register_handlers(dp):
     dp.register_message_handler(send_message_contacts, lambda message: "контакты" in message.text.lower(), state=None)
     dp.register_message_handler(send_message_queshions, lambda message: "вопрос" in message.text.lower(), state=None)
     # dp.register_message_handler(send_message_sign_up, lambda message: "записаться" in message.text.lower(), state=None)
-    dp.register_callback_query_handler(edit_message_service_description, lambda callback: callback.data in ["ser_1", "ser_2", "ser_3"], state=None)
+    dp.register_callback_query_handler(edit_message_service_description, lambda callback: callback.data in ["ser_1", "ser_2", "ser_3", "ser_4", "ser_5", "ser_6", "ser_7", "ser_8"], state=None)
     dp.register_callback_query_handler(edit_message_all_services, lambda callback: callback.data == "back", state=None)
     dp.register_callback_query_handler(send_message_sign_up, lambda callback: callback.data == "sign_up", state=None)
+    dp.register_callback_query_handler(send_message_number, lambda callback: callback.data == "call", state=None)
+    dp.register_message_handler(work_message, lambda message: "наши работы до-после" in message.text.lower(), state=None)
+    dp.register_message_handler(about_us_message, lambda message: "о нас" in message.text.lower(), state=None)
+
+
