@@ -26,16 +26,15 @@ btn_tg = InlineKeyboardButton("Диалог Telegram", url="https://t.me/yourcli
 btn_num = InlineKeyboardButton("Позвонить", callback_data="call")
 inl_kb_mark_queshions = InlineKeyboardMarkup().add(btn_tg).add(btn_num)
 
-btn_sign_up_num = InlineKeyboardButton("По телефону", url="https://clicks.su/gbNLJL")
+btn_sign_up_num = InlineKeyboardButton("По телефону", callback_data="call")
 btn_sign_up_tg = InlineKeyboardButton("Telegram", url="https://t.me/yourclinicpro")
-btn_sign_up_site = InlineKeyboardButton("Сайт", url="https://www.your-clinic.pro/")
 inl_kb_mark_sign_up = InlineKeyboardMarkup().add(btn_sign_up_num).add(btn_sign_up_tg)
 
 services = ["Брекет системы 12.990₽", "Имплантация 14.990₽", "Лечение кариеса 1.990₽", "Профессиональная гигиена 2.990₽", "Керамические виниры e-max 11.990₽", "Реставрация скола зуба 1.990₽", "Циркониевая коронка 9.990₽", "Удаление зуба 1.990₽"]
 inl_kb_mark_services = InlineKeyboardMarkup()
 for i, ser in enumerate(services):
     inl_kb_mark_services.add(InlineKeyboardButton(ser, callback_data=f"ser_{i+1}"))
-btn_sign_up_num_2 = InlineKeyboardButton("Консультация по телефону  ☎️", url="https://clicks.su/gbNLJL")
+btn_sign_up_num_2 = InlineKeyboardButton("Консультация по телефону  ☎️", callback_data="call")
 btn_sign_up_tg_2 = InlineKeyboardButton("Консультация в Telegram 💬", url="https://t.me/yourclinicpro")
 inl_kb_mark_services.add(btn_sign_up_num_2).add(btn_sign_up_tg_2)
 
